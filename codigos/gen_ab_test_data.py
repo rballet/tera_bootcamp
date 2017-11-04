@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import itertools
 
 fields = ['bucket', 'age', 'start_click', 'session_time', 'converted',
- 		  'ticket_price','shipping']
+		  'ticket_price','shipping']
 
 
 def clamp(n, smallest, largest):
@@ -59,10 +59,10 @@ def gen_ticket_data(mean_ticket=100, converted=None):
 
 
 def gen_shipping_data(mean_shipping=20, converted=None, discount=False):
-    if discount:
-        shipping = [clamp(np.random.normal(loc=mean_shipping,scale=5)-10, 5, 40) if i else 0 for i in converted]
+	if discount:
+		shipping = [clamp(np.random.normal(loc=mean_shipping,scale=5)-10, 5, 40) if i else 0 for i in converted]
 	else:
-        shipping = [clamp(np.random.normal(loc=mean_shipping,scale=5), 5, 40) if i else 0 for i in converted]
+		shipping = [clamp(np.random.normal(loc=mean_shipping,scale=5), 5, 40) if i else 0 for i in converted]
 	return shipping
 
 
@@ -142,22 +142,22 @@ class AATest(ABTest):
 		mean_ticket=100, mean_shipping=20, prob_converted_1=0.2, prob_converted_2=0.22):
 
 		ABTest.__init__(self, n_data=n_data, prob_clicked_1=prob_clicked_1, 
-            prob_clicked_2=prob_clicked_2, mean_age_1=mean_age_1, std_age_1=std_age_1,
-            mean_age_2=mean_age_2, std_age_2=std_age_2, lam_1=std_age_2, lam_2=lam_2,
-            mean_ticket=mean_ticket, mean_shipping=mean_shipping, 
-            prob_converted_1=prob_converted_1, prob_converted_2=prob_converted_2)
-        
-        
+			prob_clicked_2=prob_clicked_2, mean_age_1=mean_age_1, std_age_1=std_age_1,
+			mean_age_2=mean_age_2, std_age_2=std_age_2, lam_1=std_age_2, lam_2=lam_2,
+			mean_ticket=mean_ticket, mean_shipping=mean_shipping, 
+			prob_converted_1=prob_converted_1, prob_converted_2=prob_converted_2)
+		
+		
 class ColorABTest(ABTest):
 	def __init__(self, n_data=10000, prob_clicked_1=0.4, prob_clicked_2=0.44,
 		mean_age_1=35, std_age_1=5, mean_age_2=35, std_age_2=5, lam_1=10, lam_2=8,
 		mean_ticket=100, mean_shipping=20, prob_converted_1=0.2, prob_converted_2=0.2):
 
 		ABTest.__init__(self, n_data=n_data, prob_clicked_1=prob_clicked_1, 
-            prob_clicked_2=prob_clicked_2, mean_age_1=mean_age_1, std_age_1=std_age_1,
-            mean_age_2=mean_age_2, std_age_2=std_age_2, lam_1=std_age_2, lam_2=lam_2,
-            mean_ticket=mean_ticket, mean_shipping=mean_shipping, 
-            prob_converted_1=prob_converted_1, prob_converted_2=prob_converted_2)
+			prob_clicked_2=prob_clicked_2, mean_age_1=mean_age_1, std_age_1=std_age_1,
+			mean_age_2=mean_age_2, std_age_2=std_age_2, lam_1=std_age_2, lam_2=lam_2,
+			mean_ticket=mean_ticket, mean_shipping=mean_shipping, 
+			prob_converted_1=prob_converted_1, prob_converted_2=prob_converted_2)
 
 
 class ShippingABTest(ABTest):
@@ -166,7 +166,7 @@ class ShippingABTest(ABTest):
 		mean_ticket=100, mean_shipping=20, prob_converted_1=0.2, prob_converted_2=0.23):
 
 		ABTest.__init__(self, n_data=n_data, prob_clicked_1=prob_clicked_1, 
-            prob_clicked_2=prob_clicked_2, mean_age_1=mean_age_1, std_age_1=std_age_1,
-            mean_age_2=mean_age_2, std_age_2=std_age_2, lam_1=std_age_2, lam_2=lam_2,
-            mean_ticket=mean_ticket, mean_shipping=mean_shipping, 
-            prob_converted_1=prob_converted_1, prob_converted_2=prob_converted_2)
+			prob_clicked_2=prob_clicked_2, mean_age_1=mean_age_1, std_age_1=std_age_1,
+			mean_age_2=mean_age_2, std_age_2=std_age_2, lam_1=std_age_2, lam_2=lam_2,
+			mean_ticket=mean_ticket, mean_shipping=mean_shipping, 
+			prob_converted_1=prob_converted_1, prob_converted_2=prob_converted_2)
