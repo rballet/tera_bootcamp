@@ -58,11 +58,8 @@ def gen_ticket_data(mean_ticket=100, converted=None):
 	return ticket
 
 
-def gen_shipping_data(mean_shipping=20, converted=None, discount=False):
-	if discount:
-		shipping = [clamp(np.random.normal(loc=mean_shipping,scale=5)-10, 5, 40) if i else 0 for i in converted]
-	else:
-		shipping = [clamp(np.random.normal(loc=mean_shipping,scale=5), 5, 40) if i else 0 for i in converted]
+def gen_shipping_data(mean_shipping=20, converted=None):
+	shipping = [clamp(np.random.normal(loc=mean_shipping,scale=5), 5, 40) if i else 0 for i in converted]
 	return shipping
 
 
@@ -131,7 +128,11 @@ class ABTest(object):
 		assert bucket in [0,1], 'Valor do bucket deve ser [0,1]'
 		return self.df[self.df['bucket']==bucket]['start_click'].mean()
 
-	def conv_rate_bucket(self, bucket):
+	def conv_rate_abs_bucket(self, bucket):
+		assert bucket in [0,1], 'Valor do bucket deve ser [0,1]'
+		return self.df[self.df['bucket']==bucket]['converted'].mean()
+
+	def conv_rate_rel_bucket(self, bucket):
 		assert bucket in [0,1], 'Valor do bucket deve ser [0,1]'
 		return self.df[(self.df['start_click']==1) & (self.df['bucket']==bucket)]['converted'].mean()
 
@@ -165,8 +166,8 @@ class ShippingABTest(ABTest):
 		mean_age_1=35, std_age_1=5, mean_age_2=35, std_age_2=5, lam_1=10, lam_2=8,
 		mean_ticket=100, mean_shipping=20, prob_converted_1=0.2, prob_converted_2=0.23):
 
-		ABTest.__init__(self, n_data=n_data, prob_clicked_1=prob_clicked_1, 
+		ABTest.__init__(self, n_data=n_data/prob_clicked_1, prob_clicked_1=prob_clicked_1,
 			prob_clicked_2=prob_clicked_2, mean_age_1=mean_age_1, std_age_1=std_age_1,
 			mean_age_2=mean_age_2, std_age_2=std_age_2, lam_1=std_age_2, lam_2=lam_2,
-			mean_ticket=mean_ticket, mean_shipping=mean_shipping, 
+			mean_ticket=mean_ticket, mean_shipping=mean_shipping/2,
 			prob_converted_1=prob_converted_1, prob_converted_2=prob_converted_2)
